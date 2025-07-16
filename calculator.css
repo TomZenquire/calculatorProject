@@ -49,6 +49,7 @@ body {
     align-items: center;
     border-radius: 5px;
     box-shadow: inset 2px 2px lightgray;
+    user-select: none
 }
 
 #btn0 {
