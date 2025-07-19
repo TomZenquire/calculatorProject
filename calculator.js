@@ -19,6 +19,18 @@ const keyToDiv = {
     ".": "btn.",
     "Enter": "btnEquals",
 };
+const divToNumber = {
+    "btn0": 0,
+    "btn1": 1,
+    "btn2": 2,
+    "btn3": 3,
+    "btn4": 4,
+    "btn5": 5,
+    "btn6": 6,
+    "btn7": 7,
+    "btn8": 8,
+    "btn9": 9,
+};
 document.addEventListener('keydown', (event) => {   
     if (keyToDiv.hasOwnProperty(event.key)) {clickButton(keyToDiv[event.key])}
   });
@@ -29,6 +41,9 @@ document.addEventListener('keyup', (event) => {
     ) {unclickButton(keyToDiv[event.key])}
   });
 const buttons = document.getElementsByClassName("indButton");
+const screen = document.getElementById('screen');
+var currentValue = ""
+
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('mousedown', function(buttonClicked) {
         const clikcedId = buttonClicked.target.id;
@@ -52,5 +67,35 @@ function clickButton(buttonId) {
         unclickButton(clikcedId);
     };
     const button = document.getElementById(buttonId);
-    button.style.backgroundColor = 'orange'
+    button.style.backgroundColor = 'orange';
+    updateCurrentValue(divToNumber[buttonId],buttonId);
 };
+
+function updateCurrentValue(newValue,buttonId) {
+     if(buttonId == "btnAC") {
+
+     } else if(buttonId == "btnBackspace") {
+        currentValue == "0." ? screen.innerHTML = null : updateScreenValue(currentValue.slice(0, currentValue.length -1))
+     } else if(buttonId == "btnMultiply") {
+
+     } else if(buttonId == "btnDivide") {
+
+     } else if(buttonId == "btnAdd") {
+
+     } else if(buttonId == "btnMinus") {
+
+     } else if(buttonId == "btnEquals") {
+
+     } else if(buttonId == "btn.") {
+        if (!currentValue.includes(".")) {currentValue == "" ? updateScreenValue("0."): updateScreenValue(currentValue + ".")}
+     } else if(buttonId == "btn0") {
+        if (currentValue == "") {updateCurrentValue("0.")} else {updateScreenValue(currentValue + "0")}
+     } else {updateScreenValue(currentValue + newValue)}
+}
+
+function updateScreenValue(numberInput) {
+    currentValue = numberInput  
+    document.getElementById("curentValue").innerHTML = numberInput
+    const length = numberInput.slice(0,7).includes(".") ? 7 : 6
+    screen.innerHTML = numberInput.toString().replace(".","").length > 6 ? numberInput.slice(0,length) : numberInput
+}
