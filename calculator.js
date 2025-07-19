@@ -18,7 +18,7 @@ const keyToDiv = {
     "/": "btnDivide",
     ".": "btn.",
     "Enter": "btnEquals",
-}
+};
 document.addEventListener('keydown', (event) => {   
     if (keyToDiv.hasOwnProperty(event.key)) {clickButton(keyToDiv[event.key])}
   });
@@ -28,20 +28,24 @@ document.addEventListener('keyup', (event) => {
 const buttons = document.getElementsByClassName("indButton");
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('mousedown', function(buttonClicked) {
-        const clikcedId = buttonClicked.target.id
+        const clikcedId = buttonClicked.target.id;
         clickButton(clikcedId);
     });
-    buttons[i].addEventListener('mouseup', function(buttonClicked) {
-        const clikcedId = buttonClicked.target.id
+    if(buttons[i].id != "btnAC" && buttons[i].id != "btnDivide" && buttons[i].id != "btnMultiply" && buttons[i].id != "btnMinus" && buttons[i].id != "btnAdd" && buttons[i].id != "btnEquals" ) {buttons[i].addEventListener('mouseup', function(buttonClicked) {
+        const clikcedId = buttonClicked.target.id;
         unclickButton(clikcedId);
-    });
-}
+    })};
+};
 function unclickButton(buttonId) {
     const button = document.getElementById(buttonId);
-    button.style.removeProperty('background-color')
-}
+    button.style.removeProperty('background-color');
+};
 
 function clickButton(buttonId) {
+    for (let i = 0; i < buttons.length; i++) {
+        const clikcedId = buttons[i].getAttribute('id');
+        unclickButton(clikcedId);
+    };
     const button = document.getElementById(buttonId);
     button.style.backgroundColor = 'orange'
-}
+};
