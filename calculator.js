@@ -43,6 +43,8 @@ document.addEventListener('keyup', (event) => {
 const buttons = document.getElementsByClassName("indButton");
 const screen = document.getElementById('screen');
 var currentValue = ""
+var storedValue = ""
+var fucntionCalled = ""
 
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('mousedown', function(buttonClicked) {
@@ -73,19 +75,24 @@ function clickButton(buttonId) {
 
 function updateCurrentValue(newValue,buttonId) {
      if(buttonId == "btnAC") {
-
+        updateScreenValue(""); storedValue = "";
      } else if(buttonId == "btnBackspace") {
         currentValue == "0." ? screen.innerHTML = null : updateScreenValue(currentValue.slice(0, currentValue.length -1))
      } else if(buttonId == "btnMultiply") {
-
+        storedValue = currentValue; updateScreenValue(""); fucntionCalled = "Times"
      } else if(buttonId == "btnDivide") {
-
+        storedValue = currentValue; updateScreenValue(""); fucntionCalled = "Divide"
      } else if(buttonId == "btnAdd") {
-
+        storedValue = currentValue; updateScreenValue(""); fucntionCalled = "Add"
      } else if(buttonId == "btnMinus") {
-
+        storedValue = currentValue; updateScreenValue(""); fucntionCalled = "Minus"
      } else if(buttonId == "btnEquals") {
-
+        if (storedValue == "") {storedValue = 0}; if (currentValue == "") {currentValue = 0}
+        if (fucntionCalled == "") {} else
+        if (fucntionCalled == "Add") {currentValue = Number(storedValue) + Number(currentValue); updateScreenValue(currentValue.toString())} else
+        if (fucntionCalled == "Minus") {currentValue = Number(storedValue) - Number(currentValue); updateScreenValue(currentValue.toString())} else
+        if (fucntionCalled == "Times") {currentValue = Number(storedValue) * Number(currentValue); updateScreenValue(currentValue.toString())} else
+        if (fucntionCalled == "Divide") {currentValue = Number(storedValue) / Number(currentValue); updateScreenValue(currentValue.toString())}
      } else if(buttonId == "btn.") {
         if (!currentValue.includes(".")) {currentValue == "" ? updateScreenValue("0."): updateScreenValue(currentValue + ".")}
      } else if(buttonId == "btn0") {
@@ -95,7 +102,8 @@ function updateCurrentValue(newValue,buttonId) {
 
 function updateScreenValue(numberInput) {
     currentValue = numberInput  
-    document.getElementById("curentValue").innerHTML = numberInput
+        document.getElementById("curentValue").innerHTML = currentValue
+        document.getElementById("storedValue").innerHTML = storedValue
     const length = numberInput.slice(0,7).includes(".") ? 7 : 6
     screen.innerHTML = numberInput.toString().replace(".","").length > 6 ? numberInput.slice(0,length) : numberInput
 }
