@@ -23,7 +23,10 @@ document.addEventListener('keydown', (event) => {
     if (keyToDiv.hasOwnProperty(event.key)) {clickButton(keyToDiv[event.key])}
   });
 document.addEventListener('keyup', (event) => {
-    if (keyToDiv.hasOwnProperty(event.key)) {unclickButton(keyToDiv[event.key])}
+    if (keyToDiv.hasOwnProperty(event.key) && 
+        keyToDiv[event.key] != "btnAC" && keyToDiv[event.key] != "btnDivide" && keyToDiv[event.key] != "btnMultiply" && 
+        keyToDiv[event.key] != "btnMinus" && keyToDiv[event.key] != "btnAdd" && keyToDiv[event.key] != "btnEquals"
+    ) {unclickButton(keyToDiv[event.key])}
   });
 const buttons = document.getElementsByClassName("indButton");
 for (let i = 0; i < buttons.length; i++) {
@@ -31,7 +34,9 @@ for (let i = 0; i < buttons.length; i++) {
         const clikcedId = buttonClicked.target.id;
         clickButton(clikcedId);
     });
-    if(buttons[i].id != "btnAC" && buttons[i].id != "btnDivide" && buttons[i].id != "btnMultiply" && buttons[i].id != "btnMinus" && buttons[i].id != "btnAdd" && buttons[i].id != "btnEquals" ) {buttons[i].addEventListener('mouseup', function(buttonClicked) {
+    if(buttons[i].id != "btnAC" && buttons[i].id != "btnDivide" && buttons[i].id != "btnMultiply" && 
+        buttons[i].id != "btnMinus" && buttons[i].id != "btnAdd" && buttons[i].id != "btnEquals")
+        {buttons[i].addEventListener('mouseup', function(buttonClicked) {
         const clikcedId = buttonClicked.target.id;
         unclickButton(clikcedId);
     })};
